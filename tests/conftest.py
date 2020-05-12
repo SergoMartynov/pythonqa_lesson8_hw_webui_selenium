@@ -7,8 +7,7 @@ from selenium.webdriver import FirefoxOptions
 @pytest.fixture
 def browser_chrome():
     options = ChromeOptions()
-    options.add_argument('--start-fullscreen')
-    # options.headless = True
+    options.headless = True
     wd = webdriver.Chrome(options=options)
     yield wd
     wd.quit()
@@ -17,15 +16,13 @@ def browser_chrome():
 @pytest.fixture
 def browser_ff():
     options = FirefoxOptions()
-    options.add_argument('--start-fullscreen')
-    # options.headless = True
+    options.headless = True
     wd = webdriver.Firefox(options=options)
     yield wd
     wd.quit()
 
-
-@pytest.fixture
-def browser_safari():
-    wd = webdriver.Safari()
-    yield wd
-    wd.quit()
+# @pytest.fixture
+# def browser_safari():
+#     wd = webdriver.Safari()
+#     yield wd
+#     wd.quit()
