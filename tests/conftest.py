@@ -1,35 +1,31 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver import ChromeOptions
-from selenium.webdriver import safari
+from selenium.webdriver import FirefoxOptions
 
 
 @pytest.fixture
-def browser_chrome(request):
+def browser_chrome():
     options = ChromeOptions()
     options.add_argument('--start-fullscreen')
     # options.headless = True
     wd = webdriver.Chrome(options=options)
-    request.addfinalizer(wd.quit)
-    return wd
-
-
-# @pytest.fixture
-# def browser_ff(request):
-#     options = FirefoxOptions()
-#     options.add_argument('--start-fullscreen')
-#     # options.headless = True
-#     wd = webdriver.Firefox(options=options)
-#     request.addfinalizer(wd.quit)
-#     return wd
+    yield wd
+    wd.quit()
 
 
 @pytest.fixture
-def browser_safari(request):
-    options = safari()
-    options.binary_location = "/usr/bin/safaridriver"
+def browser_ff():
+    options = FirefoxOptions()
     options.add_argument('--start-fullscreen')
     # options.headless = True
-    wd = webdriver.safari(options=options)
-    request.addfinalizer(wd.quit)
-    return wd
+    wd = webdriver.Firefox(options=options)
+    yield wd
+    wd.quit()
+
+
+@pytest.fixture
+def browser_safari():
+    wd = webdriver.Safari()
+    yield wd
+    wd.quit()
